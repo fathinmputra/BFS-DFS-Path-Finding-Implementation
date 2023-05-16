@@ -71,7 +71,7 @@ def DFS_until(x, y, u, v, size, visited, p, wall, flag):
         return None
     else:
         if visited[x][y] != True and visited[u][v] != True:
-            canvas[x][y].configure(bg="cyan")
+            canvas[x][y].configure(bg="blue")
             canvas[x][y].update()
         visited[x][y] = True
         time.sleep(0.05)
@@ -146,17 +146,17 @@ def BFS(a, b, c, d, size, wall):
             p[i].append([-1, -1])
             d[i].append(500)
     q = Q.Queue()
-    q.queue_push([x, y])
+    q.push([x, y])
     d[x][y] = 0
     visited[x][y] = True
-    while q.queue_isempty != True:
+    while q.isempty != True:
         temp = q.front()
         x = temp[0]
         y = temp[1]
         if x == u and y == v:
             break
         if x != A[0] or y != A[1]:
-            canvas[x][y].configure(bg="aquamarine")
+            canvas[x][y].configure(bg="blue")
         canvas[x][y].update()
         if valid(x+1, y, size):
             if visited[x+1][y] == False and wall[x+1][y].block != True:
@@ -165,7 +165,7 @@ def BFS(a, b, c, d, size, wall):
                     p[x+1][y] = [x, y]
                     # canvas[x+1][y].configure(bg="blue")
                     # canvas[x+1][y].update()
-                    q.queue_push([x+1, y])
+                    q.push([x+1, y])
                 visited[x+1][y] = True
         if valid(x, y-1, size):
             if visited[x][y-1] == False and wall[x][y-1].block != True:
@@ -174,7 +174,7 @@ def BFS(a, b, c, d, size, wall):
                     p[x][y-1] = [x, y]
                     # canvas[x][y-1].configure(bg="blue")
                     # canvas[x][y-1].update()
-                    q.queue_push([x, y-1])
+                    q.push([x, y-1])
                 visited[x][y-1] = True
         if valid(x-1, y, size):
             if visited[x-1][y] == False and wall[x-1][y].block != True:
@@ -183,7 +183,7 @@ def BFS(a, b, c, d, size, wall):
                     p[x-1][y] = [x, y]
                     # canvas[x-1][y].configure(bg="blue")
                     # canvas[x-1][y].update()
-                    q.queue_push([x-1, y])
+                    q.push([x-1, y])
                 visited[x-1][y] = True
         if valid(x, y+1, size):
             if visited[x][y+1] == False and wall[x][y+1].block != True:
@@ -192,9 +192,9 @@ def BFS(a, b, c, d, size, wall):
                     p[x][y+1] = [x, y]
                     # canvas[x][y+1].configure(bg="blue")
                     # canvas[x][y+1].update()
-                    q.queue_push([x, y+1])
+                    q.push([x, y+1])
                 visited[x][y+1] = True
-        q.queue_pop()
+        q.pop()
         time.sleep(0.02)
     front = p[u][v]
     canvas[u][v].configure(bg="yellow")
@@ -218,9 +218,9 @@ a = IntVar()
 b = IntVar()
 c = IntVar()
 d = IntVar()
-Label(root, text="Source cooridnates: ", background="green").grid(
+Label(root, text="source cooridnates", background="white").grid(
     row=0, column=0, padx=10, pady=10)
-Label(root, text="Sestination cooridnates: ", background="red").grid(
+Label(root, text="destination cooridnates", background="white").grid(
     row=1, column=0, padx=10, pady=10)
 # x1 y1 represent source corodinates and x2 and y2 represent destination coordinates
 Entry(root, textvariable=a).grid(row=0, column=1, padx=10, pady=10)
@@ -249,13 +249,12 @@ dfs = partial(DFS, a, b, c, d, size, wall)
 SET = partial(Set, a, b, c, d, wall, size)
 Clear = partial(clear, wall, size)
 Button(root, text="Set Coord.", command=SET, width=10, height=1,
-       bg="blue").grid(row=3, column=0, padx=1, pady=1)
+       bg="green").grid(row=3, column=0, padx=1, pady=1)
 Button(root, text="Find by BFS", command=bfs, width=10,
-       height=1, bg="aquamarine").grid(row=4, column=0, padx=1, pady=1)
+       height=1, bg="blue").grid(row=4, column=0, padx=1, pady=1)
 Button(root, text="Find by DFS", command=dfs, width=10, height=1,
-       bg="cyan").grid(row=5, column=0, padx=1, pady=1)
+       bg="purple").grid(row=5, column=0, padx=1, pady=1)
 Button(root, text="Clear All", command=Clear, width=10,
-       height=1, bg="white").grid(row=6, column=0, padx=1, pady=1)
-
+       height=1, bg="red").grid(row=6, column=0, padx=1, pady=1)
 
 root.mainloop()

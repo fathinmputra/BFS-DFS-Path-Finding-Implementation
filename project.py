@@ -1,4 +1,5 @@
 from tkinter import *
+from PIL import Image, ImageTk
 import queue as Q
 from functools import partial
 import time  # importing time module to delay the animation by 0.05 seconds
@@ -213,7 +214,14 @@ def BFS(a, b, c, d, size, wall):
 root = Tk()
 canvas = []
 wall = []
-root.configure(background="black")
+root.configure(background='black')
+
+pattern1 = Image.open("asset/bg_ilham.png")
+tkPattern1 = ImageTk.PhotoImage(pattern1)
+
+bg_label = Label(root, image=tkPattern1)
+bg_label.place(x=0, y=0, relwidth=1, relheight=1)
+
 a = IntVar()
 b = IntVar()
 c = IntVar()

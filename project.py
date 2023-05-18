@@ -2,7 +2,7 @@ from tkinter import *
 from PIL import Image, ImageTk
 import queue as Q
 from functools import partial
-import time  # importing time module to delay the animation by 0.05 seconds
+import time
 global canvas
 global wall
 
@@ -11,7 +11,7 @@ class Block:
     def __init__(self, i, j, size):
         self.x = i
         self.y = j
-        self.flag = True  # to know the present state
+        self.flag = True
         self.block = False
 
     def add_block(self, event):
@@ -104,8 +104,8 @@ def DFS(a, b, c, d, size, wall):
     [u, v] = get_dest(c, d)
     canvas[x][y].configure(bg="green")
     canvas[u][v].configure(bg="red")
-    visited = list()  # visited array to keep track of visited nodes
-    p = list()  # to keep track of prev node visited
+    visited = list()
+    p = list()
     for i in range(size):
         visited.append([])
         p.append([])
@@ -134,9 +134,9 @@ def BFS(a, b, c, d, size, wall):
     [u, v] = get_dest(c, d)
     canvas[x][y].configure(bg="green")
     canvas[u][v].configure(bg="red")
-    visited = list()  # visited array to keep track of visited nodes
-    p = list()  # to keep track of parent nodes
-    d = list()  # to keep track of distance from souce node
+    visited = list()
+    p = list()
+    d = list()
     for i in range(size):
         visited.append([])
         p.append([])
@@ -173,8 +173,6 @@ def BFS(a, b, c, d, size, wall):
                 if d[x][y-1] > d[x][y]+1:
                     d[x][y-1] = d[x][y]+1
                     p[x][y-1] = [x, y]
-                    # canvas[x][y-1].configure(bg="blue")
-                    # canvas[x][y-1].update()
                     q.queue_push([x, y-1])
                 visited[x][y-1] = True
         if valid(x-1, y, size):
@@ -182,8 +180,6 @@ def BFS(a, b, c, d, size, wall):
                 if d[x-1][y] > d[x][y]+1:
                     d[x-1][y] = d[x][y]+1
                     p[x-1][y] = [x, y]
-                    # canvas[x-1][y].configure(bg="blue")
-                    # canvas[x-1][y].update()
                     q.queue_push([x-1, y])
                 visited[x-1][y] = True
         if valid(x, y+1, size):
@@ -191,8 +187,6 @@ def BFS(a, b, c, d, size, wall):
                 if d[x][y+1] > d[x][y]+1:
                     d[x][y+1] = d[x][y]+1
                     p[x][y+1] = [x, y]
-                    # canvas[x][y+1].configure(bg="blue")
-                    # canvas[x][y+1].update()
                     q.queue_push([x, y+1])
                 visited[x][y+1] = True
         q.queue_pop()
@@ -212,6 +206,7 @@ def BFS(a, b, c, d, size, wall):
 
 
 root = Tk()
+root.title("Path Finding with BFS and DFS")
 canvas = []
 wall = []
 root.configure(background='black')
@@ -228,9 +223,8 @@ c = IntVar()
 d = IntVar()
 Label(root, text="Source cooridnates: ", background="green").grid(
     row=0, column=0, padx=10, pady=10)
-Label(root, text="Sestination cooridnates: ", background="red").grid(
+Label(root, text="Destination cooridnates: ", background="red").grid(
     row=1, column=0, padx=10, pady=10)
-# x1 y1 represent source corodinates and x2 and y2 represent destination coordinates
 Entry(root, textvariable=a).grid(row=0, column=1, padx=10, pady=10)
 Entry(root, textvariable=b).grid(row=0, column=2, padx=10, pady=10)
 Entry(root, textvariable=c).grid(row=1, column=1, padx=10, pady=10)
